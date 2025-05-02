@@ -5,202 +5,635 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birim Çevirici</title>
     <style>
-        /* Genel stil */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
         }
-
+        
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-
-        h1 {
+        
+        header {
             text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .converter-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
             margin-bottom: 20px;
         }
-
+        
+        .converter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .converter-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        .converter-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
         label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
+            font-weight: 500;
+            color: var(--primary-color);
         }
-
-        select, input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        
+        input, select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
         }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
-
-        button:hover {
-            background-color: #45a049;
+        
+        .converter-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        h3 {
-            text-align: center;
+        
+        @media (min-width: 600px) {
+            .converter-row {
+                flex-direction: row;
+            }
+            
+            .input-group {
+                flex: 1;
+            }
+        }
+        
+        .result {
             margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f4f8;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .result-value {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+        
+        .category-selector {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        
+        .category-btn {
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Birim Çevirici</h1>
+        <header>
+            <h1>Birim Çevirici</h1>
+            <p>Kolayca farklı birimler arasında dönüşüm yapın</p>
+        </header>
         
-        <div class="converter">
-            <label for="from-unit">Birimi Seçin:</label>
-            <select id="from-unit">
-                <option value="length">Uzunluk</option>
-                <option value="area">Alan</option>
-                <option value="power">Güç</option>
-                <option value="weight">Ağırlık</option>
-                <option value="temperature">Sıcaklık</option>
-                <option value="time">Zaman</option>
-                <option value="speed">Hız</option>
-                <option value="pressure">Basınç</option>
-                <option value="volume">Hacim</option>
-                <option value="energy">Enerji</option>
-            </select>
-            
-            <label for="from-value">Değer Girin:</label>
-            <input type="number" id="from-value" placeholder="Değer Girin" />
-
-            <label for="to-unit">Hedef Birim:</label>
-            <select id="to-unit">
-                <!-- Birimler dinamik olarak değişecek -->
-            </select>
-            
-            <button onclick="convert()">Hesapla</button>
-            
-            <h3>Sonuç: <span id="result">0</span></h3>
+        <div class="category-selector">
+            <button class="category-btn active" data-category="length">Uzunluk</button>
+            <button class="category-btn" data-category="weight">Ağırlık</button>
+            <button class="category-btn" data-category="temperature">Sıcaklık</button>
+            <button class="category-btn" data-category="area">Alan</button>
+            <button class="category-btn" data-category="volume">Hacim</button>
         </div>
+        
+        <div class="converter-card" id="length-converter">
+            <div class="converter-header">
+                <h2 class="converter-title">Uzunluk Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="length-value">Değer</label>
+                        <input type="number" id="length-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="length-from">Birim</label>
+                        <select id="length-from">
+                            <option value="mm">Milimetre (mm)</option>
+                            <option value="cm">Santimetre (cm)</option>
+                            <option value="m" selected>Metre (m)</option>
+                            <option value="km">Kilometre (km)</option>
+                            <option value="in">İnç (in)</option>
+                            <option value="ft">Fit (ft)</option>
+                            <option value="yd">Yarda (yd)</option>
+                            <option value="mi">Mil (mi)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="length-to">Dönüştürülecek Birim</label>
+                        <select id="length-to">
+                            <option value="mm">Milimetre (mm)</option>
+                            <option value="cm" selected>Santimetre (cm)</option>
+                            <option value="m">Metre (m)</option>
+                            <option value="km">Kilometre (km)</option>
+                            <option value="in">İnç (in)</option>
+                            <option value="ft">Fit (ft)</option>
+                            <option value="yd">Yarda (yd)</option>
+                            <option value="mi">Mil (mi)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="length-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="length-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="converter-card" id="weight-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Ağırlık Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="weight-value">Değer</label>
+                        <input type="number" id="weight-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="weight-from">Birim</label>
+                        <select id="weight-from">
+                            <option value="mg">Miligram (mg)</option>
+                            <option value="g">Gram (g)</option>
+                            <option value="kg" selected>Kilogram (kg)</option>
+                            <option value="t">Ton (t)</option>
+                            <option value="oz">Ons (oz)</option>
+                            <option value="lb">Pound (lb)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="weight-to">Dönüştürülecek Birim</label>
+                        <select id="weight-to">
+                            <option value="mg">Miligram (mg)</option>
+                            <option value="g" selected>Gram (g)</option>
+                            <option value="kg">Kilogram (kg)</option>
+                            <option value="t">Ton (t)</option>
+                            <option value="oz">Ons (oz)</option>
+                            <option value="lb">Pound (lb)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="weight-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="weight-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="converter-card" id="temperature-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Sıcaklık Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="temperature-value">Değer</label>
+                        <input type="number" id="temperature-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="temperature-from">Birim</label>
+                        <select id="temperature-from">
+                            <option value="c" selected>Celsius (°C)</option>
+                            <option value="f">Fahrenheit (°F)</option>
+                            <option value="k">Kelvin (K)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="temperature-to">Dönüştürülecek Birim</label>
+                        <select id="temperature-to">
+                            <option value="c">Celsius (°C)</option>
+                            <option value="f" selected>Fahrenheit (°F)</option>
+                            <option value="k">Kelvin (K)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="temperature-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="temperature-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="converter-card" id="area-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Alan Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="area-value">Değer</label>
+                        <input type="number" id="area-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="area-from">Birim</label>
+                        <select id="area-from">
+                            <option value="mm2">Milimetre kare (mm²)</option>
+                            <option value="cm2">Santimetre kare (cm²)</option>
+                            <option value="m2" selected>Metre kare (m²)</option>
+                            <option value="km2">Kilometre kare (km²)</option>
+                            <option value="ha">Hektar (ha)</option>
+                            <option value="in2">İnç kare (in²)</option>
+                            <option value="ft2">Fit kare (ft²)</option>
+                            <option value="ac">Acre (ac)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="area-to">Dönüştürülecek Birim</label>
+                        <select id="area-to">
+                            <option value="mm2">Milimetre kare (mm²)</option>
+                            <option value="cm2" selected>Santimetre kare (cm²)</option>
+                            <option value="m2">Metre kare (m²)</option>
+                            <option value="km2">Kilometre kare (km²)</option>
+                            <option value="ha">Hektar (ha)</option>
+                            <option value="in2">İnç kare (in²)</option>
+                            <option value="ft2">Fit kare (ft²)</option>
+                            <option value="ac">Acre (ac)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="area-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="area-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="converter-card" id="volume-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Hacim Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="volume-value">Değer</label>
+                        <input type="number" id="volume-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="volume-from">Birim</label>
+                        <select id="volume-from">
+                            <option value="ml">Mililitre (ml)</option>
+                            <option value="cl">Santilitre (cl)</option>
+                            <option value="l" selected>Litre (l)</option>
+                            <option value="m3">Metre küp (m³)</option>
+                            <option value="in3">İnç küp (in³)</option>
+                            <option value="ft3">Fit küp (ft³)</option>
+                            <option value="gal">Galon (gal)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="volume-to">Dönüştürülecek Birim</label>
+                        <select id="volume-to">
+                            <option value="ml">Mililitre (ml)</option>
+                            <option value="cl">Santilitre (cl)</option>
+                            <option value="l">Litre (l)</option>
+                            <option value="m3">Metre küp (m³)</option>
+                            <option value="in3">İnç küp (in³)</option>
+                            <option value="ft3" selected>Fit küp (ft³)</option>
+                            <option value="gal">Galon (gal)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="volume-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="volume-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Birim Çevirici | Tüm hakları saklıdır</p>
+        </footer>
     </div>
 
     <script>
-        // Birim dönüşüm oranları
-        const conversionRates = {
-            length: {
-                meter: 1,
-                kilometer: 1000,
-                centimeter: 0.01,
-                millimeter: 0.001,
-                inch: 0.0254,
-                foot: 0.3048,
-                yard: 0.9144,
-            },
-            area: {
-                squareMeter: 1,
-                hectare: 10000,
-                acre: 4046.8564224,
-                squareKilometer: 1000000,
-            },
-            power: {
-                kw: 1,
-                hp: 0.7457,
-            },
-            weight: {
-                kilogram: 1,
-                gram: 0.001,
-                ton: 1000,
-                pound: 0.453592,
-                ounce: 0.0283495,
-            },
-            temperature: {
-                celsius: 1,
-                fahrenheit: (val) => (val * 9/5) + 32,
-                kelvin: (val) => val + 273.15,
-            },
-            time: {
-                second: 1,
-                minute: 60,
-                hour: 3600,
-                millisecond: 0.001,
-            },
-            speed: {
-                ms: 1,
-                kmh: 0.277778,
-                mph: 0.44704,
-                knot: 0.514444,
-            },
-            pressure: {
-                pascal: 1,
-                bar: 100000,
-                atm: 101325,
-                psi: 6894.76,
-            },
-            volume: {
-                liter: 1,
-                milliliter: 0.001,
-                gallon: 3.78541,
-            },
-            energy: {
-                joule: 1,
-                cal: 4.184,
-                wh: 3600,
-                kwh: 3600000,
-            }
+        // Kategori seçimi
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const converters = {
+            'length': document.getElementById('length-converter'),
+            'weight': document.getElementById('weight-converter'),
+            'temperature': document.getElementById('temperature-converter'),
+            'area': document.getElementById('area-converter'),
+            'volume': document.getElementById('volume-converter')
         };
-
-        function updateUnits() {
-            const fromUnit = document.getElementById("from-unit").value;
-            const unitSelect = document.getElementById("to-unit");
-
-            // Birimler listesine göre hedef birimleri güncelle
-            const units = Object.keys(conversionRates[fromUnit]);
-            unitSelect.innerHTML = '';
-            units.forEach(unit => {
-                const option = document.createElement('option');
-                option.value = unit;
-                option.textContent = unit;
-                unitSelect.appendChild(option);
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Tüm butonlardan active classını kaldır
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Tüm çeviricileri gizle
+                Object.values(converters).forEach(converter => converter.style.display = 'none');
+                
+                // Tıklanan butona active classını ekle
+                button.classList.add('active');
+                // İlgili çeviriciyi göster
+                const category = button.getAttribute('data-category');
+                converters[category].style.display = 'block';
             });
-        }
-
-        function convert() {
-            const fromUnit = document.getElementById("from-unit").value;
-            const toUnit = document.getElementById("to-unit").value;
-            const fromValue = parseFloat(document.getElementById("from-value").value);
+        });
+        
+        // Uzunluk çevirme
+        document.getElementById('length-convert-btn').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('length-value').value);
+            const fromUnit = document.getElementById('length-from').value;
+            const toUnit = document.getElementById('length-to').value;
             
-            let result = 0;
-            
-            // Basit dönüşüm
-            if (fromUnit === "temperature") {
-                result = conversionRates[fromUnit][toUnit](fromValue);  // Sıcaklık dönüşümü fonksiyonel
-            } else {
-                result = fromValue * conversionRates[fromUnit][toUnit];  // Diğer dönüşümler
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
             }
-
-            document.getElementById("result").textContent = result;
+            
+            const result = convertLength(value, fromUnit, toUnit);
+            document.getElementById('length-result').textContent = result.toFixed(6);
+        });
+        
+        // Ağırlık çevirme
+        document.getElementById('weight-convert-btn').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('weight-value').value);
+            const fromUnit = document.getElementById('weight-from').value;
+            const toUnit = document.getElementById('weight-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertWeight(value, fromUnit, toUnit);
+            document.getElementById('weight-result').textContent = result.toFixed(6);
+        });
+        
+        // Sıcaklık çevirme
+        document.getElementById('temperature-convert-btn').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('temperature-value').value);
+            const fromUnit = document.getElementById('temperature-from').value;
+            const toUnit = document.getElementById('temperature-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertTemperature(value, fromUnit, toUnit);
+            document.getElementById('temperature-result').textContent = result.toFixed(6);
+        });
+        
+        // Alan çevirme
+        document.getElementById('area-convert-btn').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('area-value').value);
+            const fromUnit = document.getElementById('area-from').value;
+            const toUnit = document.getElementById('area-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertArea(value, fromUnit, toUnit);
+            document.getElementById('area-result').textContent = result.toFixed(6);
+        });
+        
+        // Hacim çevirme
+        document.getElementById('volume-convert-btn').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('volume-value').value);
+            const fromUnit = document.getElementById('volume-from').value;
+            const toUnit = document.getElementById('volume-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertVolume(value, fromUnit, toUnit);
+            document.getElementById('volume-result').textContent = result.toFixed(6);
+        });
+        
+        // Çevirme fonksiyonları
+        function convertLength(value, fromUnit, toUnit) {
+            // Önce metreye çevir
+            let meters;
+            switch (fromUnit) {
+                case 'mm': meters = value / 1000; break;
+                case 'cm': meters = value / 100; break;
+                case 'm': meters = value; break;
+                case 'km': meters = value * 1000; break;
+                case 'in': meters = value * 0.0254; break;
+                case 'ft': meters = value * 0.3048; break;
+                case 'yd': meters = value * 0.9144; break;
+                case 'mi': meters = value * 1609.344; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'mm': return meters * 1000;
+                case 'cm': return meters * 100;
+                case 'm': return meters;
+                case 'km': return meters / 1000;
+                case 'in': return meters / 0.0254;
+                case 'ft': return meters / 0.3048;
+                case 'yd': return meters / 0.9144;
+                case 'mi': return meters / 1609.344;
+                default: return meters;
+            }
         }
-
-        // İlk yükleme
-        updateUnits();
+        
+        function convertWeight(value, fromUnit, toUnit) {
+            // Önce grama çevir
+            let grams;
+            switch (fromUnit) {
+                case 'mg': grams = value / 1000; break;
+                case 'g': grams = value; break;
+                case 'kg': grams = value * 1000; break;
+                case 't': grams = value * 1000000; break;
+                case 'oz': grams = value * 28.3495; break;
+                case 'lb': grams = value * 453.592; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'mg': return grams * 1000;
+                case 'g': return grams;
+                case 'kg': return grams / 1000;
+                case 't': return grams / 1000000;
+                case 'oz': return grams / 28.3495;
+                case 'lb': return grams / 453.592;
+                default: return grams;
+            }
+        }
+        
+        function convertTemperature(value, fromUnit, toUnit) {
+            // Önce Celsius'a çevir
+            let celsius;
+            switch (fromUnit) {
+                case 'c': celsius = value; break;
+                case 'f': celsius = (value - 32) * 5/9; break;
+                case 'k': celsius = value - 273.15; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'c': return celsius;
+                case 'f': return (celsius * 9/5) + 32;
+                case 'k': return celsius + 273.15;
+                default: return celsius;
+            }
+        }
+        
+        function convertArea(value, fromUnit, toUnit) {
+            // Önce metrekareye çevir
+            let squareMeters;
+            switch (fromUnit) {
+                case 'mm2': squareMeters = value / 1000000; break;
+                case 'cm2': squareMeters = value / 10000; break;
+                case 'm2': squareMeters = value; break;
+                case 'km2': squareMeters = value * 1000000; break;
+                case 'ha': squareMeters = value * 10000; break;
+                case 'in2': squareMeters = value * 0.00064516; break;
+                case 'ft2': squareMeters = value * 0.092903; break;
+                case 'ac': squareMeters = value * 4046.86; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'mm2': return squareMeters * 1000000;
+                case 'cm2': return squareMeters * 10000;
+                case 'm2': return squareMeters;
+                case 'km2': return squareMeters / 1000000;
+                case 'ha': return squareMeters / 10000;
+                case 'in2': return squareMeters / 0.00064516;
+                case 'ft2': return squareMeters / 0.092903;
+                case 'ac': return squareMeters / 4046.86;
+                default: return squareMeters;
+            }
+        }
+        
+        function convertVolume(value, fromUnit, toUnit) {
+            // Önce litreye çevir
+            let liters;
+            switch (fromUnit) {
+                case 'ml': liters = value / 1000; break;
+                case 'cl': liters = value / 100; break;
+                case 'l': liters = value; break;
+                case 'm3': liters = value * 1000; break;
+                case 'in3': liters = value * 0.0163871; break;
+                case 'ft3': liters = value * 28.3168; break;
+                case 'gal': liters = value * 3.78541; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'ml': return liters * 1000;
+                case 'cl': return liters * 100;
+                case 'l': return liters;
+                case 'm3': return liters / 1000;
+                case 'in3': return liters / 0.0163871;
+                case 'ft3': return liters / 28.3168;
+                case 'gal': return liters / 3.78541;
+                default: return liters;
+            }
+        }
     </script>
 </body>
 </html>
