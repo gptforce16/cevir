@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birim Çevirici</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Birim Çevirici</h1>
+        
+        <div class="converter">
+            <label for="from-unit">Birimi Seçin:</label>
+            <select id="from-unit">
+                <option value="length">Uzunluk</option>
+                <option value="weight">Ağırlık</option>
+                <option value="temperature">Sıcaklık</option>
+                <!-- Diğer kategoriler burada olacak -->
+            </select>
+            
+            <label for="from-value">Değer Girin:</label>
+            <input type="number" id="from-value" placeholder="Değer Girin" />
+
+            <label for="to-unit">Hedef Birim:</label>
+            <select id="to-unit">
+                <option value="meter">Metre</option>
+                <option value="kilogram">Kilogram</option>
+                <!-- Diğer hedef birimler burada olacak -->
+            </select>
+            
+            <button onclick="convert()">Hesapla</button>
+            
+            <h3>Sonuç: <span id="result">0</span></h3>
+        </div>
+    </div>
+
+    <script>
+        function convert() {
+            var fromUnit = document.getElementById("from-unit").value;
+            var toUnit = document.getElementById("to-unit").value;
+            var fromValue = document.getElementById("from-value").value;
+            
+            var result = 0;
+            
+            if (fromUnit === "length" && toUnit === "meter") {
+                result = fromValue; // Basit örnek, daha fazla dönüşüm ekleyeceğiz
+            } else if (fromUnit === "weight" && toUnit === "kilogram") {
+                result = fromValue; // Yine basit örnek
+            } else if (fromUnit === "temperature" && toUnit === "Celsius") {
+                result = fromValue; // Bu örnek olarak verildi
+            }
+
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</body>
+</html>
