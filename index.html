@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birim Çevirici</title>
     <style>
+        /* Genel stil */
         * {
             margin: 0;
             padding: 0;
@@ -76,9 +77,15 @@
             <label for="from-unit">Birimi Seçin:</label>
             <select id="from-unit">
                 <option value="length">Uzunluk</option>
+                <option value="area">Alan</option>
+                <option value="power">Güç</option>
                 <option value="weight">Ağırlık</option>
                 <option value="temperature">Sıcaklık</option>
-                <!-- Diğer kategoriler burada olacak -->
+                <option value="time">Zaman</option>
+                <option value="speed">Hız</option>
+                <option value="pressure">Basınç</option>
+                <option value="volume">Hacim</option>
+                <option value="energy">Enerji</option>
             </select>
             
             <label for="from-value">Değer Girin:</label>
@@ -86,9 +93,7 @@
 
             <label for="to-unit">Hedef Birim:</label>
             <select id="to-unit">
-                <option value="meter">Metre</option>
-                <option value="kilogram">Kilogram</option>
-                <!-- Diğer hedef birimler burada olacak -->
+                <!-- Birimler dinamik olarak değişecek -->
             </select>
             
             <button onclick="convert()">Hesapla</button>
@@ -98,23 +103,104 @@
     </div>
 
     <script>
+        // Birim dönüşüm oranları
+        const conversionRates = {
+            length: {
+                meter: 1,
+                kilometer: 1000,
+                centimeter: 0.01,
+                millimeter: 0.001,
+                inch: 0.0254,
+                foot: 0.3048,
+                yard: 0.9144,
+            },
+            area: {
+                squareMeter: 1,
+                hectare: 10000,
+                acre: 4046.8564224,
+                squareKilometer: 1000000,
+            },
+            power: {
+                kw: 1,
+                hp: 0.7457,
+            },
+            weight: {
+                kilogram: 1,
+                gram: 0.001,
+                ton: 1000,
+                pound: 0.453592,
+                ounce: 0.0283495,
+            },
+            temperature: {
+                celsius: 1,
+                fahrenheit: (val) => (val * 9/5) + 32,
+                kelvin: (val) => val + 273.15,
+            },
+            time: {
+                second: 1,
+                minute: 60,
+                hour: 3600,
+                millisecond: 0.001,
+            },
+            speed: {
+                ms: 1,
+                kmh: 0.277778,
+                mph: 0.44704,
+                knot: 0.514444,
+            },
+            pressure: {
+                pascal: 1,
+                bar: 100000,
+                atm: 101325,
+                psi: 6894.76,
+            },
+            volume: {
+                liter: 1,
+                milliliter: 0.001,
+                gallon: 3.78541,
+            },
+            energy: {
+                joule: 1,
+                cal: 4.184,
+                wh: 3600,
+                kwh: 3600000,
+            }
+        };
+
+        function updateUnits() {
+            const fromUnit = document.getElementById("from-unit").value;
+            const unitSelect = document.getElementById("to-unit");
+
+            // Birimler listesine göre hedef birimleri güncelle
+            const units = Object.keys(conversionRates[fromUnit]);
+            unitSelect.innerHTML = '';
+            units.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit;
+                option.textContent = unit;
+                unitSelect.appendChild(option);
+            });
+        }
+
         function convert() {
-            var fromUnit = document.getElementById("from-unit").value;
-            var toUnit = document.getElementById("to-unit").value;
-            var fromValue = document.getElementById("from-value").value;
+            const fromUnit = document.getElementById("from-unit").value;
+            const toUnit = document.getElementById("to-unit").value;
+            const fromValue = parseFloat(document.getElementById("from-value").value);
             
-            var result = 0;
+            let result = 0;
             
-            if (fromUnit === "length" && toUnit === "meter") {
-                result = fromValue; // Basit örnek, daha fazla dönüşüm ekleyeceğiz
-            } else if (fromUnit === "weight" && toUnit === "kilogram") {
-                result = fromValue; // Yine basit örnek
-            } else if (fromUnit === "temperature" && toUnit === "Celsius") {
-                result = fromValue; // Bu örnek olarak verildi
+            // Basit dönüşüm
+            if (fromUnit === "temperature") {
+                result = conversionRates[fromUnit][toUnit](fromValue);  // Sıcaklık dönüşümü fonksiyonel
+            } else {
+                result = fromValue * conversionRates[fromUnit][toUnit];  // Diğer dönüşümler
             }
 
             document.getElementById("result").textContent = result;
         }
+
+        // İlk yükleme
+        updateUnits();
     </script>
 </body>
 </html>
