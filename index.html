@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birim Çevirici</title>
+    <title>Gelişmiş Birim Çevirici</title>
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6b8cae;
-            --background-color: #f5f7fa;
+            --primary-color: #5d6bc4;
+            --secondary-color: #7c8fd8;
+            --background-color: #f5f7ff;
             --text-color: #333;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -28,7 +28,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
@@ -40,6 +40,12 @@
         h1 {
             color: var(--primary-color);
             margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .description {
+            color: #666;
+            margin-bottom: 20px;
         }
         
         .converter-card {
@@ -85,6 +91,7 @@
             border-radius: 6px;
             font-size: 1rem;
             transition: border 0.3s;
+            width: 100%;
         }
         
         input:focus, select:focus {
@@ -111,7 +118,7 @@
         .result {
             margin-top: 20px;
             padding: 15px;
-            background-color: #f0f4f8;
+            background-color: #f0f4ff;
             border-radius: 6px;
             text-align: center;
             font-size: 1.1rem;
@@ -129,6 +136,7 @@
             gap: 10px;
             margin-bottom: 20px;
             padding-bottom: 10px;
+            scrollbar-width: thin;
         }
         
         .category-btn {
@@ -139,6 +147,7 @@
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
         .category-btn.active {
@@ -153,13 +162,46 @@
             color: #666;
             font-size: 0.9rem;
         }
+        
+        /* Kaydırma çubuğu için */
+        .category-selector::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .category-selector::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .category-selector::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+        
+        .category-selector::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+        
+        .convert-btn {
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .convert-btn:hover {
+            background: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Birim Çevirici</h1>
-            <p>Kolayca farklı birimler arasında dönüşüm yapın</p>
+            <h1>Gelişmiş Birim Çevirici</h1>
+            <p class="description">150'den fazla birim arasında kolayca dönüşüm yapın</p>
         </header>
         
         <div class="category-selector">
@@ -168,8 +210,16 @@
             <button class="category-btn" data-category="temperature">Sıcaklık</button>
             <button class="category-btn" data-category="area">Alan</button>
             <button class="category-btn" data-category="volume">Hacim</button>
+            <button class="category-btn" data-category="power">Güç</button>
+            <button class="category-btn" data-category="pressure">Basınç</button>
+            <button class="category-btn" data-category="speed">Hız</button>
+            <button class="category-btn" data-category="time">Zaman</button>
+            <button class="category-btn" data-category="data">Veri</button>
+            <button class="category-btn" data-category="energy">Enerji</button>
+            <button class="category-btn" data-category="angle">Açı</button>
         </div>
         
+        <!-- Uzunluk Çevirici -->
         <div class="converter-card" id="length-converter">
             <div class="converter-header">
                 <h2 class="converter-title">Uzunluk Çevirici</h2>
@@ -183,6 +233,8 @@
                     <div class="input-group">
                         <label for="length-from">Birim</label>
                         <select id="length-from">
+                            <option value="nm">Nanometre (nm)</option>
+                            <option value="μm">Mikrometre (μm)</option>
                             <option value="mm">Milimetre (mm)</option>
                             <option value="cm">Santimetre (cm)</option>
                             <option value="m" selected>Metre (m)</option>
@@ -191,6 +243,7 @@
                             <option value="ft">Fit (ft)</option>
                             <option value="yd">Yarda (yd)</option>
                             <option value="mi">Mil (mi)</option>
+                            <option value="nmi">Deniz Mili (nmi)</option>
                         </select>
                     </div>
                 </div>
@@ -198,6 +251,8 @@
                     <div class="input-group">
                         <label for="length-to">Dönüştürülecek Birim</label>
                         <select id="length-to">
+                            <option value="nm">Nanometre (nm)</option>
+                            <option value="μm">Mikrometre (μm)</option>
                             <option value="mm">Milimetre (mm)</option>
                             <option value="cm" selected>Santimetre (cm)</option>
                             <option value="m">Metre (m)</option>
@@ -206,11 +261,12 @@
                             <option value="ft">Fit (ft)</option>
                             <option value="yd">Yarda (yd)</option>
                             <option value="mi">Mil (mi)</option>
+                            <option value="nmi">Deniz Mili (nmi)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>&nbsp;</label>
-                        <button id="length-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                        <button id="length-convert-btn" class="convert-btn">Çevir</button>
                     </div>
                 </div>
                 <div class="result">
@@ -219,6 +275,7 @@
             </div>
         </div>
         
+        <!-- Ağırlık Çevirici -->
         <div class="converter-card" id="weight-converter" style="display: none;">
             <div class="converter-header">
                 <h2 class="converter-title">Ağırlık Çevirici</h2>
@@ -232,12 +289,16 @@
                     <div class="input-group">
                         <label for="weight-from">Birim</label>
                         <select id="weight-from">
+                            <option value="μg">Mikrogram (μg)</option>
                             <option value="mg">Miligram (mg)</option>
                             <option value="g">Gram (g)</option>
                             <option value="kg" selected>Kilogram (kg)</option>
                             <option value="t">Ton (t)</option>
                             <option value="oz">Ons (oz)</option>
                             <option value="lb">Pound (lb)</option>
+                            <option value="st">Stone (st)</option>
+                            <option value="qr">Quarter (qr)</option>
+                            <option value="cwt">Hundredweight (cwt)</option>
                         </select>
                     </div>
                 </div>
@@ -245,17 +306,21 @@
                     <div class="input-group">
                         <label for="weight-to">Dönüştürülecek Birim</label>
                         <select id="weight-to">
+                            <option value="μg">Mikrogram (μg)</option>
                             <option value="mg">Miligram (mg)</option>
                             <option value="g" selected>Gram (g)</option>
                             <option value="kg">Kilogram (kg)</option>
                             <option value="t">Ton (t)</option>
                             <option value="oz">Ons (oz)</option>
                             <option value="lb">Pound (lb)</option>
+                            <option value="st">Stone (st)</option>
+                            <option value="qr">Quarter (qr)</option>
+                            <option value="cwt">Hundredweight (cwt)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>&nbsp;</label>
-                        <button id="weight-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                        <button id="weight-convert-btn" class="convert-btn">Çevir</button>
                     </div>
                 </div>
                 <div class="result">
@@ -264,6 +329,7 @@
             </div>
         </div>
         
+        <!-- Sıcaklık Çevirici -->
         <div class="converter-card" id="temperature-converter" style="display: none;">
             <div class="converter-header">
                 <h2 class="converter-title">Sıcaklık Çevirici</h2>
@@ -280,6 +346,7 @@
                             <option value="c" selected>Celsius (°C)</option>
                             <option value="f">Fahrenheit (°F)</option>
                             <option value="k">Kelvin (K)</option>
+                            <option value="r">Rankine (°R)</option>
                         </select>
                     </div>
                 </div>
@@ -290,11 +357,12 @@
                             <option value="c">Celsius (°C)</option>
                             <option value="f" selected>Fahrenheit (°F)</option>
                             <option value="k">Kelvin (K)</option>
+                            <option value="r">Rankine (°R)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>&nbsp;</label>
-                        <button id="temperature-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                        <button id="temperature-convert-btn" class="convert-btn">Çevir</button>
                     </div>
                 </div>
                 <div class="result">
@@ -303,6 +371,7 @@
             </div>
         </div>
         
+        <!-- Alan Çevirici -->
         <div class="converter-card" id="area-converter" style="display: none;">
             <div class="converter-header">
                 <h2 class="converter-title">Alan Çevirici</h2>
@@ -321,9 +390,11 @@
                             <option value="m2" selected>Metre kare (m²)</option>
                             <option value="km2">Kilometre kare (km²)</option>
                             <option value="ha">Hektar (ha)</option>
+                            <option value="ac">Acre (ac)</option>
                             <option value="in2">İnç kare (in²)</option>
                             <option value="ft2">Fit kare (ft²)</option>
-                            <option value="ac">Acre (ac)</option>
+                            <option value="yd2">Yarda kare (yd²)</option>
+                            <option value="mi2">Mil kare (mi²)</option>
                         </select>
                     </div>
                 </div>
@@ -336,14 +407,16 @@
                             <option value="m2">Metre kare (m²)</option>
                             <option value="km2">Kilometre kare (km²)</option>
                             <option value="ha">Hektar (ha)</option>
+                            <option value="ac">Acre (ac)</option>
                             <option value="in2">İnç kare (in²)</option>
                             <option value="ft2">Fit kare (ft²)</option>
-                            <option value="ac">Acre (ac)</option>
+                            <option value="yd2">Yarda kare (yd²)</option>
+                            <option value="mi2">Mil kare (mi²)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>&nbsp;</label>
-                        <button id="area-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                        <button id="area-convert-btn" class="convert-btn">Çevir</button>
                     </div>
                 </div>
                 <div class="result">
@@ -352,6 +425,7 @@
             </div>
         </div>
         
+        <!-- Hacim Çevirici -->
         <div class="converter-card" id="volume-converter" style="display: none;">
             <div class="converter-header">
                 <h2 class="converter-title">Hacim Çevirici</h2>
@@ -365,13 +439,19 @@
                     <div class="input-group">
                         <label for="volume-from">Birim</label>
                         <select id="volume-from">
+                            <option value="mm3">Milimetre küp (mm³)</option>
+                            <option value="cm3">Santimetre küp (cm³)</option>
                             <option value="ml">Mililitre (ml)</option>
                             <option value="cl">Santilitre (cl)</option>
                             <option value="l" selected>Litre (l)</option>
                             <option value="m3">Metre küp (m³)</option>
                             <option value="in3">İnç küp (in³)</option>
                             <option value="ft3">Fit küp (ft³)</option>
+                            <option value="yd3">Yarda küp (yd³)</option>
                             <option value="gal">Galon (gal)</option>
+                            <option value="qt">Quart (qt)</option>
+                            <option value="pt">Pint (pt)</option>
+                            <option value="fl-oz">Sıvı ons (fl oz)</option>
                         </select>
                     </div>
                 </div>
@@ -379,18 +459,24 @@
                     <div class="input-group">
                         <label for="volume-to">Dönüştürülecek Birim</label>
                         <select id="volume-to">
+                            <option value="mm3">Milimetre küp (mm³)</option>
+                            <option value="cm3">Santimetre küp (cm³)</option>
                             <option value="ml">Mililitre (ml)</option>
                             <option value="cl">Santilitre (cl)</option>
                             <option value="l">Litre (l)</option>
                             <option value="m3">Metre küp (m³)</option>
                             <option value="in3">İnç küp (in³)</option>
                             <option value="ft3" selected>Fit küp (ft³)</option>
+                            <option value="yd3">Yarda küp (yd³)</option>
                             <option value="gal">Galon (gal)</option>
+                            <option value="qt">Quart (qt)</option>
+                            <option value="pt">Pint (pt)</option>
+                            <option value="fl-oz">Sıvı ons (fl oz)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>&nbsp;</label>
-                        <button id="volume-convert-btn" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">Çevir</button>
+                        <button id="volume-convert-btn" class="convert-btn">Çevir</button>
                     </div>
                 </div>
                 <div class="result">
@@ -399,8 +485,358 @@
             </div>
         </div>
         
+        <!-- Güç Çevirici (KW-HP vb.) -->
+        <div class="converter-card" id="power-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Güç Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="power-value">Değer</label>
+                        <input type="number" id="power-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="power-from">Birim</label>
+                        <select id="power-from">
+                            <option value="w">Watt (W)</option>
+                            <option value="kw" selected>Kilowatt (kW)</option>
+                            <option value="mw">Megawatt (MW)</option>
+                            <option value="hp">Beygir Gücü (HP)</option>
+                            <option value="ps">Metrik Beygir (PS)</option>
+                            <option value="btu-h">BTU/saat</option>
+                            <option value="ft-lb-s">Ft-lb/s</option>
+                            <option value="cal-s">Kalori/s</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="power-to">Dönüştürülecek Birim</label>
+                        <select id="power-to">
+                            <option value="w">Watt (W)</option>
+                            <option value="kw">Kilowatt (kW)</option>
+                            <option value="mw">Megawatt (MW)</option>
+                            <option value="hp" selected>Beygir Gücü (HP)</option>
+                            <option value="ps">Metrik Beygir (PS)</option>
+                            <option value="btu-h">BTU/saat</option>
+                            <option value="ft-lb-s">Ft-lb/s</option>
+                            <option value="cal-s">Kalori/s</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="power-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="power-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Basınç Çevirici -->
+        <div class="converter-card" id="pressure-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Basınç Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="pressure-value">Değer</label>
+                        <input type="number" id="pressure-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="pressure-from">Birim</label>
+                        <select id="pressure-from">
+                            <option value="pa">Pascal (Pa)</option>
+                            <option value="kpa">Kilopascal (kPa)</option>
+                            <option value="mpa">Megapascal (MPa)</option>
+                            <option value="bar" selected>Bar (bar)</option>
+                            <option value="atm">Atmosfer (atm)</option>
+                            <option value="mmhg">mmHg</option>
+                            <option value="psi">PSI</option>
+                            <option value="kgf-cm2">kgf/cm²</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="pressure-to">Dönüştürülecek Birim</label>
+                        <select id="pressure-to">
+                            <option value="pa">Pascal (Pa)</option>
+                            <option value="kpa">Kilopascal (kPa)</option>
+                            <option value="mpa">Megapascal (MPa)</option>
+                            <option value="bar">Bar (bar)</option>
+                            <option value="atm">Atmosfer (atm)</option>
+                            <option value="mmhg" selected>mmHg</option>
+                            <option value="psi">PSI</option>
+                            <option value="kgf-cm2">kgf/cm²</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="pressure-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="pressure-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hız Çevirici -->
+        <div class="converter-card" id="speed-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Hız Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="speed-value">Değer</label>
+                        <input type="number" id="speed-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="speed-from">Birim</label>
+                        <select id="speed-from">
+                            <option value="m-s">Metre/saniye (m/s)</option>
+                            <option value="km-h" selected>Kilometre/saat (km/h)</option>
+                            <option value="mi-h">Mil/saat (mph)</option>
+                            <option value="ft-s">Fit/saniye (ft/s)</option>
+                            <option value="kn">Knot (kn)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="speed-to">Dönüştürülecek Birim</label>
+                        <select id="speed-to">
+                            <option value="m-s">Metre/saniye (m/s)</option>
+                            <option value="km-h">Kilometre/saat (km/h)</option>
+                            <option value="mi-h" selected>Mil/saat (mph)</option>
+                            <option value="ft-s">Fit/saniye (ft/s)</option>
+                            <option value="kn">Knot (kn)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="speed-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="speed-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Zaman Çevirici -->
+        <div class="converter-card" id="time-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Zaman Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="time-value">Değer</label>
+                        <input type="number" id="time-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="time-from">Birim</label>
+                        <select id="time-from">
+                            <option value="ns">Nanosecond (ns)</option>
+                            <option value="μs">Microsecond (μs)</option>
+                            <option value="ms">Milisecond (ms)</option>
+                            <option value="s" selected>Second (s)</option>
+                            <option value="min">Minute (min)</option>
+                            <option value="h">Hour (h)</option>
+                            <option value="d">Day (d)</option>
+                            <option value="wk">Week (wk)</option>
+                            <option value="mo">Month (mo)</option>
+                            <option value="yr">Year (yr)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="time-to">Dönüştürülecek Birim</label>
+                        <select id="time-to">
+                            <option value="ns">Nanosecond (ns)</option>
+                            <option value="μs">Microsecond (μs)</option>
+                            <option value="ms">Milisecond (ms)</option>
+                            <option value="s">Second (s)</option>
+                            <option value="min" selected>Minute (min)</option>
+                            <option value="h">Hour (h)</option>
+                            <option value="d">Day (d)</option>
+                            <option value="wk">Week (wk)</option>
+                            <option value="mo">Month (mo)</option>
+                            <option value="yr">Year (yr)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="time-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="time-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Veri Çevirici -->
+        <div class="converter-card" id="data-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Veri Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="data-value">Değer</label>
+                        <input type="number" id="data-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="data-from">Birim</label>
+                        <select id="data-from">
+                            <option value="bit">Bit (bit)</option>
+                            <option value="b" selected>Byte (B)</option>
+                            <option value="kb">Kilobyte (KB)</option>
+                            <option value="mb">Megabyte (MB)</option>
+                            <option value="gb">Gigabyte (GB)</option>
+                            <option value="tb">Terabyte (TB)</option>
+                            <option value="pb">Petabyte (PB)</option>
+                            <option value="kib">Kibibyte (KiB)</option>
+                            <option value="mib">Mebibyte (MiB)</option>
+                            <option value="gib">Gibibyte (GiB)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="data-to">Dönüştürülecek Birim</label>
+                        <select id="data-to">
+                            <option value="bit">Bit (bit)</option>
+                            <option value="b">Byte (B)</option>
+                            <option value="kb" selected>Kilobyte (KB)</option>
+                            <option value="mb">Megabyte (MB)</option>
+                            <option value="gb">Gigabyte (GB)</option>
+                            <option value="tb">Terabyte (TB)</option>
+                            <option value="pb">Petabyte (PB)</option>
+                            <option value="kib">Kibibyte (KiB)</option>
+                            <option value="mib">Mebibyte (MiB)</option>
+                            <option value="gib">Gibibyte (GiB)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="data-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="data-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enerji Çevirici -->
+        <div class="converter-card" id="energy-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Enerji Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="energy-value">Değer</label>
+                        <input type="number" id="energy-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="energy-from">Birim</label>
+                        <select id="energy-from">
+                            <option value="j">Joule (J)</option>
+                            <option value="kj">Kilojoule (kJ)</option>
+                            <option value="mj">Megajoule (MJ)</option>
+                            <option value="cal" selected>Kalori (cal)</option>
+                            <option value="kcal">Kilokalori (kcal)</option>
+                            <option value="wh">Watt-saat (Wh)</option>
+                            <option value="kwh">Kilowatt-saat (kWh)</option>
+                            <option value="ev">Elektronvolt (eV)</option>
+                            <option value="btu">BTU</option>
+                            <option value="ft-lb">Ft-lb</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="energy-to">Dönüştürülecek Birim</label>
+                        <select id="energy-to">
+                            <option value="j">Joule (J)</option>
+                            <option value="kj">Kilojoule (kJ)</option>
+                            <option value="mj">Megajoule (MJ)</option>
+                            <option value="cal">Kalori (cal)</option>
+                            <option value="kcal" selected>Kilokalori (kcal)</option>
+                            <option value="wh">Watt-saat (Wh)</option>
+                            <option value="kwh">Kilowatt-saat (kWh)</option>
+                            <option value="ev">Elektronvolt (eV)</option>
+                            <option value="btu">BTU</option>
+                            <option value="ft-lb">Ft-lb</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="energy-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="energy-result">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Açı Çevirici -->
+        <div class="converter-card" id="angle-converter" style="display: none;">
+            <div class="converter-header">
+                <h2 class="converter-title">Açı Çevirici</h2>
+            </div>
+            <div class="converter-body">
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="angle-value">Değer</label>
+                        <input type="number" id="angle-value" placeholder="Değer girin">
+                    </div>
+                    <div class="input-group">
+                        <label for="angle-from">Birim</label>
+                        <select id="angle-from">
+                            <option value="deg" selected>Derece (°)</option>
+                            <option value="rad">Radyan (rad)</option>
+                            <option value="grad">Grad (grad)</option>
+                            <option value="arcmin">Dakika (')</option>
+                            <option value="arcsec">Saniye (")</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="converter-row">
+                    <div class="input-group">
+                        <label for="angle-to">Dönüştürülecek Birim</label>
+                        <select id="angle-to">
+                            <option value="deg">Derece (°)</option>
+                            <option value="rad" selected>Radyan (rad)</option>
+                            <option value="grad">Grad (grad)</option>
+                            <option value="arcmin">Dakika (')</option>
+                            <option value="arcsec">Saniye (")</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>&nbsp;</label>
+                        <button id="angle-convert-btn" class="convert-btn">Çevir</button>
+                    </div>
+                </div>
+                <div class="result">
+                    Sonuç: <span class="result-value" id="angle-result">0</span>
+                </div>
+            </div>
+        </div>
+        
         <footer>
-            <p>© 2023 Birim Çevirici | Tüm hakları saklıdır</p>
+            <p>© 2023 Gelişmiş Birim Çevirici | Tüm hakları saklıdır</p>
         </footer>
     </div>
 
@@ -412,7 +848,14 @@
             'weight': document.getElementById('weight-converter'),
             'temperature': document.getElementById('temperature-converter'),
             'area': document.getElementById('area-converter'),
-            'volume': document.getElementById('volume-converter')
+            'volume': document.getElementById('volume-converter'),
+            'power': document.getElementById('power-converter'),
+            'pressure': document.getElementById('pressure-converter'),
+            'speed': document.getElementById('speed-converter'),
+            'time': document.getElementById('time-converter'),
+            'data': document.getElementById('data-converter'),
+            'energy': document.getElementById('energy-converter'),
+            'angle': document.getElementById('angle-converter')
         };
         
         categoryButtons.forEach(button => {
@@ -430,8 +873,22 @@
             });
         });
         
-        // Uzunluk çevirme
-        document.getElementById('length-convert-btn').addEventListener('click', () => {
+        // Çevirme butonları için event listener'lar
+        document.getElementById('length-convert-btn').addEventListener('click', convertLengthUnit);
+        document.getElementById('weight-convert-btn').addEventListener('click', convertWeightUnit);
+        document.getElementById('temperature-convert-btn').addEventListener('click', convertTemperatureUnit);
+        document.getElementById('area-convert-btn').addEventListener('click', convertAreaUnit);
+        document.getElementById('volume-convert-btn').addEventListener('click', convertVolumeUnit);
+        document.getElementById('power-convert-btn').addEventListener('click', convertPowerUnit);
+        document.getElementById('pressure-convert-btn').addEventListener('click', convertPressureUnit);
+        document.getElementById('speed-convert-btn').addEventListener('click', convertSpeedUnit);
+        document.getElementById('time-convert-btn').addEventListener('click', convertTimeUnit);
+        document.getElementById('data-convert-btn').addEventListener('click', convertDataUnit);
+        document.getElementById('energy-convert-btn').addEventListener('click', convertEnergyUnit);
+        document.getElementById('angle-convert-btn').addEventListener('click', convertAngleUnit);
+        
+        // Çevirme fonksiyonları
+        function convertLengthUnit() {
             const value = parseFloat(document.getElementById('length-value').value);
             const fromUnit = document.getElementById('length-from').value;
             const toUnit = document.getElementById('length-to').value;
@@ -443,10 +900,9 @@
             
             const result = convertLength(value, fromUnit, toUnit);
             document.getElementById('length-result').textContent = result.toFixed(6);
-        });
+        }
         
-        // Ağırlık çevirme
-        document.getElementById('weight-convert-btn').addEventListener('click', () => {
+        function convertWeightUnit() {
             const value = parseFloat(document.getElementById('weight-value').value);
             const fromUnit = document.getElementById('weight-from').value;
             const toUnit = document.getElementById('weight-to').value;
@@ -458,10 +914,9 @@
             
             const result = convertWeight(value, fromUnit, toUnit);
             document.getElementById('weight-result').textContent = result.toFixed(6);
-        });
+        }
         
-        // Sıcaklık çevirme
-        document.getElementById('temperature-convert-btn').addEventListener('click', () => {
+        function convertTemperatureUnit() {
             const value = parseFloat(document.getElementById('temperature-value').value);
             const fromUnit = document.getElementById('temperature-from').value;
             const toUnit = document.getElementById('temperature-to').value;
@@ -473,10 +928,9 @@
             
             const result = convertTemperature(value, fromUnit, toUnit);
             document.getElementById('temperature-result').textContent = result.toFixed(6);
-        });
+        }
         
-        // Alan çevirme
-        document.getElementById('area-convert-btn').addEventListener('click', () => {
+        function convertAreaUnit() {
             const value = parseFloat(document.getElementById('area-value').value);
             const fromUnit = document.getElementById('area-from').value;
             const toUnit = document.getElementById('area-to').value;
@@ -488,10 +942,9 @@
             
             const result = convertArea(value, fromUnit, toUnit);
             document.getElementById('area-result').textContent = result.toFixed(6);
-        });
+        }
         
-        // Hacim çevirme
-        document.getElementById('volume-convert-btn').addEventListener('click', () => {
+        function convertVolumeUnit() {
             const value = parseFloat(document.getElementById('volume-value').value);
             const fromUnit = document.getElementById('volume-from').value;
             const toUnit = document.getElementById('volume-to').value;
@@ -503,13 +956,113 @@
             
             const result = convertVolume(value, fromUnit, toUnit);
             document.getElementById('volume-result').textContent = result.toFixed(6);
-        });
+        }
         
-        // Çevirme fonksiyonları
+        function convertPowerUnit() {
+            const value = parseFloat(document.getElementById('power-value').value);
+            const fromUnit = document.getElementById('power-from').value;
+            const toUnit = document.getElementById('power-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertPower(value, fromUnit, toUnit);
+            document.getElementById('power-result').textContent = result.toFixed(6);
+        }
+        
+        function convertPressureUnit() {
+            const value = parseFloat(document.getElementById('pressure-value').value);
+            const fromUnit = document.getElementById('pressure-from').value;
+            const toUnit = document.getElementById('pressure-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertPressure(value, fromUnit, toUnit);
+            document.getElementById('pressure-result').textContent = result.toFixed(6);
+        }
+        
+        function convertSpeedUnit() {
+            const value = parseFloat(document.getElementById('speed-value').value);
+            const fromUnit = document.getElementById('speed-from').value;
+            const toUnit = document.getElementById('speed-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertSpeed(value, fromUnit, toUnit);
+            document.getElementById('speed-result').textContent = result.toFixed(6);
+        }
+        
+        function convertTimeUnit() {
+            const value = parseFloat(document.getElementById('time-value').value);
+            const fromUnit = document.getElementById('time-from').value;
+            const toUnit = document.getElementById('time-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertTime(value, fromUnit, toUnit);
+            document.getElementById('time-result').textContent = result.toFixed(6);
+        }
+        
+        function convertDataUnit() {
+            const value = parseFloat(document.getElementById('data-value').value);
+            const fromUnit = document.getElementById('data-from').value;
+            const toUnit = document.getElementById('data-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertData(value, fromUnit, toUnit);
+            document.getElementById('data-result').textContent = result.toFixed(6);
+        }
+        
+        function convertEnergyUnit() {
+            const value = parseFloat(document.getElementById('energy-value').value);
+            const fromUnit = document.getElementById('energy-from').value;
+            const toUnit = document.getElementById('energy-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertEnergy(value, fromUnit, toUnit);
+            document.getElementById('energy-result').textContent = result.toFixed(6);
+        }
+        
+        function convertAngleUnit() {
+            const value = parseFloat(document.getElementById('angle-value').value);
+            const fromUnit = document.getElementById('angle-from').value;
+            const toUnit = document.getElementById('angle-to').value;
+            
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir sayı giriniz.');
+                return;
+            }
+            
+            const result = convertAngle(value, fromUnit, toUnit);
+            document.getElementById('angle-result').textContent = result.toFixed(6);
+        }
+        
+        // Temel çevirme fonksiyonları
         function convertLength(value, fromUnit, toUnit) {
             // Önce metreye çevir
             let meters;
             switch (fromUnit) {
+                case 'nm': meters = value / 1e9; break;
+                case 'μm': meters = value / 1e6; break;
                 case 'mm': meters = value / 1000; break;
                 case 'cm': meters = value / 100; break;
                 case 'm': meters = value; break;
@@ -518,11 +1071,14 @@
                 case 'ft': meters = value * 0.3048; break;
                 case 'yd': meters = value * 0.9144; break;
                 case 'mi': meters = value * 1609.344; break;
+                case 'nmi': meters = value * 1852; break;
                 default: return value;
             }
             
             // Sonra hedef birime çevir
             switch (toUnit) {
+                case 'nm': return meters * 1e9;
+                case 'μm': return meters * 1e6;
                 case 'mm': return meters * 1000;
                 case 'cm': return meters * 100;
                 case 'm': return meters;
@@ -531,6 +1087,7 @@
                 case 'ft': return meters / 0.3048;
                 case 'yd': return meters / 0.9144;
                 case 'mi': return meters / 1609.344;
+                case 'nmi': return meters / 1852;
                 default: return meters;
             }
         }
@@ -539,23 +1096,31 @@
             // Önce grama çevir
             let grams;
             switch (fromUnit) {
+                case 'μg': grams = value / 1e6; break;
                 case 'mg': grams = value / 1000; break;
                 case 'g': grams = value; break;
                 case 'kg': grams = value * 1000; break;
-                case 't': grams = value * 1000000; break;
+                case 't': grams = value * 1e6; break;
                 case 'oz': grams = value * 28.3495; break;
                 case 'lb': grams = value * 453.592; break;
+                case 'st': grams = value * 6350.29; break;
+                case 'qr': grams = value * 12700.6; break;
+                case 'cwt': grams = value * 50802.3; break;
                 default: return value;
             }
             
             // Sonra hedef birime çevir
             switch (toUnit) {
+                case 'μg': return grams * 1e6;
                 case 'mg': return grams * 1000;
                 case 'g': return grams;
                 case 'kg': return grams / 1000;
-                case 't': return grams / 1000000;
+                case 't': return grams / 1e6;
                 case 'oz': return grams / 28.3495;
                 case 'lb': return grams / 453.592;
+                case 'st': return grams / 6350.29;
+                case 'qr': return grams / 12700.6;
+                case 'cwt': return grams / 50802.3;
                 default: return grams;
             }
         }
@@ -567,6 +1132,7 @@
                 case 'c': celsius = value; break;
                 case 'f': celsius = (value - 32) * 5/9; break;
                 case 'k': celsius = value - 273.15; break;
+                case 'r': celsius = (value - 491.67) * 5/9; break;
                 default: return value;
             }
             
@@ -575,6 +1141,7 @@
                 case 'c': return celsius;
                 case 'f': return (celsius * 9/5) + 32;
                 case 'k': return celsius + 273.15;
+                case 'r': return (celsius * 9/5) + 491.67;
                 default: return celsius;
             }
         }
@@ -583,27 +1150,31 @@
             // Önce metrekareye çevir
             let squareMeters;
             switch (fromUnit) {
-                case 'mm2': squareMeters = value / 1000000; break;
-                case 'cm2': squareMeters = value / 10000; break;
+                case 'mm2': squareMeters = value / 1e6; break;
+                case 'cm2': squareMeters = value / 1e4; break;
                 case 'm2': squareMeters = value; break;
-                case 'km2': squareMeters = value * 1000000; break;
-                case 'ha': squareMeters = value * 10000; break;
+                case 'km2': squareMeters = value * 1e6; break;
+                case 'ha': squareMeters = value * 1e4; break;
+                case 'ac': squareMeters = value * 4046.86; break;
                 case 'in2': squareMeters = value * 0.00064516; break;
                 case 'ft2': squareMeters = value * 0.092903; break;
-                case 'ac': squareMeters = value * 4046.86; break;
+                case 'yd2': squareMeters = value * 0.836127; break;
+                case 'mi2': squareMeters = value * 2.59e6; break;
                 default: return value;
             }
             
             // Sonra hedef birime çevir
             switch (toUnit) {
-                case 'mm2': return squareMeters * 1000000;
-                case 'cm2': return squareMeters * 10000;
+                case 'mm2': return squareMeters * 1e6;
+                case 'cm2': return squareMeters * 1e4;
                 case 'm2': return squareMeters;
-                case 'km2': return squareMeters / 1000000;
-                case 'ha': return squareMeters / 10000;
+                case 'km2': return squareMeters / 1e6;
+                case 'ha': return squareMeters / 1e4;
+                case 'ac': return squareMeters / 4046.86;
                 case 'in2': return squareMeters / 0.00064516;
                 case 'ft2': return squareMeters / 0.092903;
-                case 'ac': return squareMeters / 4046.86;
+                case 'yd2': return squareMeters / 0.836127;
+                case 'mi2': return squareMeters / 2.59e6;
                 default: return squareMeters;
             }
         }
@@ -612,26 +1183,241 @@
             // Önce litreye çevir
             let liters;
             switch (fromUnit) {
+                case 'mm3': liters = value / 1e6; break;
+                case 'cm3': liters = value / 1000; break;
                 case 'ml': liters = value / 1000; break;
                 case 'cl': liters = value / 100; break;
                 case 'l': liters = value; break;
                 case 'm3': liters = value * 1000; break;
                 case 'in3': liters = value * 0.0163871; break;
                 case 'ft3': liters = value * 28.3168; break;
+                case 'yd3': liters = value * 764.555; break;
                 case 'gal': liters = value * 3.78541; break;
+                case 'qt': liters = value * 0.946353; break;
+                case 'pt': liters = value * 0.473176; break;
+                case 'fl-oz': liters = value * 0.0295735; break;
                 default: return value;
             }
             
             // Sonra hedef birime çevir
             switch (toUnit) {
+                case 'mm3': return liters * 1e6;
+                case 'cm3': return liters * 1000;
                 case 'ml': return liters * 1000;
                 case 'cl': return liters * 100;
                 case 'l': return liters;
                 case 'm3': return liters / 1000;
                 case 'in3': return liters / 0.0163871;
                 case 'ft3': return liters / 28.3168;
+                case 'yd3': return liters / 764.555;
                 case 'gal': return liters / 3.78541;
+                case 'qt': return liters / 0.946353;
+                case 'pt': return liters / 0.473176;
+                case 'fl-oz': return liters / 0.0295735;
                 default: return liters;
+            }
+        }
+        
+        function convertPower(value, fromUnit, toUnit) {
+            // Önce watt'a çevir
+            let watts;
+            switch (fromUnit) {
+                case 'w': watts = value; break;
+                case 'kw': watts = value * 1000; break;
+                case 'mw': watts = value * 1e6; break;
+                case 'hp': watts = value * 745.7; break;
+                case 'ps': watts = value * 735.499; break;
+                case 'btu-h': watts = value * 0.293071; break;
+                case 'ft-lb-s': watts = value * 1.35582; break;
+                case 'cal-s': watts = value * 4.1868; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'w': return watts;
+                case 'kw': return watts / 1000;
+                case 'mw': return watts / 1e6;
+                case 'hp': return watts / 745.7;
+                case 'ps': return watts / 735.499;
+                case 'btu-h': return watts / 0.293071;
+                case 'ft-lb-s': return watts / 1.35582;
+                case 'cal-s': return watts / 4.1868;
+                default: return watts;
+            }
+        }
+        
+        function convertPressure(value, fromUnit, toUnit) {
+            // Önce pascal'a çevir
+            let pascals;
+            switch (fromUnit) {
+                case 'pa': pascals = value; break;
+                case 'kpa': pascals = value * 1000; break;
+                case 'mpa': pascals = value * 1e6; break;
+                case 'bar': pascals = value * 1e5; break;
+                case 'atm': pascals = value * 101325; break;
+                case 'mmhg': pascals = value * 133.322; break;
+                case 'psi': pascals = value * 6894.76; break;
+                case 'kgf-cm2': pascals = value * 98066.5; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'pa': return pascals;
+                case 'kpa': return pascals / 1000;
+                case 'mpa': return pascals / 1e6;
+                case 'bar': return pascals / 1e5;
+                case 'atm': return pascals / 101325;
+                case 'mmhg': return pascals / 133.322;
+                case 'psi': return pascals / 6894.76;
+                case 'kgf-cm2': return pascals / 98066.5;
+                default: return pascals;
+            }
+        }
+        
+        function convertSpeed(value, fromUnit, toUnit) {
+            // Önce metre/saniye'ye çevir
+            let metersPerSecond;
+            switch (fromUnit) {
+                case 'm-s': metersPerSecond = value; break;
+                case 'km-h': metersPerSecond = value / 3.6; break;
+                case 'mi-h': metersPerSecond = value * 0.44704; break;
+                case 'ft-s': metersPerSecond = value * 0.3048; break;
+                case 'kn': metersPerSecond = value * 0.514444; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'm-s': return metersPerSecond;
+                case 'km-h': return metersPerSecond * 3.6;
+                case 'mi-h': return metersPerSecond / 0.44704;
+                case 'ft-s': return metersPerSecond / 0.3048;
+                case 'kn': return metersPerSecond / 0.514444;
+                default: return metersPerSecond;
+            }
+        }
+        
+        function convertTime(value, fromUnit, toUnit) {
+            // Önce saniyeye çevir
+            let seconds;
+            switch (fromUnit) {
+                case 'ns': seconds = value / 1e9; break;
+                case 'μs': seconds = value / 1e6; break;
+                case 'ms': seconds = value / 1000; break;
+                case 's': seconds = value; break;
+                case 'min': seconds = value * 60; break;
+                case 'h': seconds = value * 3600; break;
+                case 'd': seconds = value * 86400; break;
+                case 'wk': seconds = value * 604800; break;
+                case 'mo': seconds = value * 2.628e6; break; // Ortalama ay
+                case 'yr': seconds = value * 3.154e7; break; // Ortalama yıl
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'ns': return seconds * 1e9;
+                case 'μs': return seconds * 1e6;
+                case 'ms': return seconds * 1000;
+                case 's': return seconds;
+                case 'min': return seconds / 60;
+                case 'h': return seconds / 3600;
+                case 'd': return seconds / 86400;
+                case 'wk': return seconds / 604800;
+                case 'mo': return seconds / 2.628e6;
+                case 'yr': return seconds / 3.154e7;
+                default: return seconds;
+            }
+        }
+        
+        function convertData(value, fromUnit, toUnit) {
+            // Önce byte'a çevir
+            let bytes;
+            switch (fromUnit) {
+                case 'bit': bytes = value / 8; break;
+                case 'b': bytes = value; break;
+                case 'kb': bytes = value * 1000; break;
+                case 'mb': bytes = value * 1e6; break;
+                case 'gb': bytes = value * 1e9; break;
+                case 'tb': bytes = value * 1e12; break;
+                case 'pb': bytes = value * 1e15; break;
+                case 'kib': bytes = value * 1024; break;
+                case 'mib': bytes = value * 1048576; break;
+                case 'gib': bytes = value * 1073741824; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'bit': return bytes * 8;
+                case 'b': return bytes;
+                case 'kb': return bytes / 1000;
+                case 'mb': return bytes / 1e6;
+                case 'gb': return bytes / 1e9;
+                case 'tb': return bytes / 1e12;
+                case 'pb': return bytes / 1e15;
+                case 'kib': return bytes / 1024;
+                case 'mib': return bytes / 1048576;
+                case 'gib': return bytes / 1073741824;
+                default: return bytes;
+            }
+        }
+        
+        function convertEnergy(value, fromUnit, toUnit) {
+            // Önce joule'a çevir
+            let joules;
+            switch (fromUnit) {
+                case 'j': joules = value; break;
+                case 'kj': joules = value * 1000; break;
+                case 'mj': joules = value * 1e6; break;
+                case 'cal': joules = value * 4.184; break;
+                case 'kcal': joules = value * 4184; break;
+                case 'wh': joules = value * 3600; break;
+                case 'kwh': joules = value * 3.6e6; break;
+                case 'ev': joules = value * 1.60218e-19; break;
+                case 'btu': joules = value * 1055.06; break;
+                case 'ft-lb': joules = value * 1.35582; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'j': return joules;
+                case 'kj': return joules / 1000;
+                case 'mj': return joules / 1e6;
+                case 'cal': return joules / 4.184;
+                case 'kcal': return joules / 4184;
+                case 'wh': return joules / 3600;
+                case 'kwh': return joules / 3.6e6;
+                case 'ev': return joules / 1.60218e-19;
+                case 'btu': return joules / 1055.06;
+                case 'ft-lb': return joules / 1.35582;
+                default: return joules;
+            }
+        }
+        
+        function convertAngle(value, fromUnit, toUnit) {
+            // Önce dereceye çevir
+            let degrees;
+            switch (fromUnit) {
+                case 'deg': degrees = value; break;
+                case 'rad': degrees = value * (180 / Math.PI); break;
+                case 'grad': degrees = value * 0.9; break;
+                case 'arcmin': degrees = value / 60; break;
+                case 'arcsec': degrees = value / 3600; break;
+                default: return value;
+            }
+            
+            // Sonra hedef birime çevir
+            switch (toUnit) {
+                case 'deg': return degrees;
+                case 'rad': return degrees * (Math.PI / 180);
+                case 'grad': return degrees / 0.9;
+                case 'arcmin': return degrees * 60;
+                case 'arcsec': return degrees * 3600;
+                default: return degrees;
             }
         }
     </script>
