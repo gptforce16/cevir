@@ -852,7 +852,7 @@
             let num = parseFloat(value);
             
             // Eğer geçerli bir sayı değilse veya boşsa işlemi sonlandır
-            if (isNaN(num) {
+            if (isNaN(num)) {
                 input.value = '';
                 return;
             }
@@ -911,50 +911,54 @@
         }
 
         // Kategori seçimi
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const converters = {
-            'length': document.getElementById('length-converter'),
-            'weight': document.getElementById('weight-converter'),
-            'temperature': document.getElementById('temperature-converter'),
-            'area': document.getElementById('area-converter'),
-            'volume': document.getElementById('volume-converter'),
-            'power': document.getElementById('power-converter'),
-            'pressure': document.getElementById('pressure-converter'),
-            'speed': document.getElementById('speed-converter'),
-            'time': document.getElementById('time-converter'),
-            'data': document.getElementById('data-converter'),
-            'energy': document.getElementById('energy-converter'),
-            'angle': document.getElementById('angle-converter')
-        };
-        
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Tüm butonlardan active classını kaldır
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                // Tüm çeviricileri gizle
-                Object.values(converters).forEach(converter => converter.style.display = 'none');
-                
-                // Tıklanan butona active classını ekle
-                button.classList.add('active');
-                // İlgili çeviriciyi göster
-                const category = button.getAttribute('data-category');
-                converters[category].style.display = 'block';
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const converters = {
+                'length': document.getElementById('length-converter'),
+                'weight': document.getElementById('weight-converter'),
+                'temperature': document.getElementById('temperature-converter'),
+                'area': document.getElementById('area-converter'),
+                'volume': document.getElementById('volume-converter'),
+                'power': document.getElementById('power-converter'),
+                'pressure': document.getElementById('pressure-converter'),
+                'speed': document.getElementById('speed-converter'),
+                'time': document.getElementById('time-converter'),
+                'data': document.getElementById('data-converter'),
+                'energy': document.getElementById('energy-converter'),
+                'angle': document.getElementById('angle-converter')
+            };
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Tüm butonlardan active classını kaldır
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Tüm çeviricileri gizle
+                    Object.values(converters).forEach(converter => converter.style.display = 'none');
+                    
+                    // Tıklanan butona active classını ekle
+                    button.classList.add('active');
+                    // İlgili çeviriciyi göster
+                    const category = button.getAttribute('data-category');
+                    if (converters[category]) {
+                        converters[category].style.display = 'block';
+                    }
+                });
             });
+            
+            // Çevirme butonları için event listener'lar
+            document.getElementById('length-convert-btn').addEventListener('click', convertLengthUnit);
+            document.getElementById('weight-convert-btn').addEventListener('click', convertWeightUnit);
+            document.getElementById('temperature-convert-btn').addEventListener('click', convertTemperatureUnit);
+            document.getElementById('area-convert-btn').addEventListener('click', convertAreaUnit);
+            document.getElementById('volume-convert-btn').addEventListener('click', convertVolumeUnit);
+            document.getElementById('power-convert-btn').addEventListener('click', convertPowerUnit);
+            document.getElementById('pressure-convert-btn').addEventListener('click', convertPressureUnit);
+            document.getElementById('speed-convert-btn').addEventListener('click', convertSpeedUnit);
+            document.getElementById('time-convert-btn').addEventListener('click', convertTimeUnit);
+            document.getElementById('data-convert-btn').addEventListener('click', convertDataUnit);
+            document.getElementById('energy-convert-btn').addEventListener('click', convertEnergyUnit);
+            document.getElementById('angle-convert-btn').addEventListener('click', convertAngleUnit);
         });
-        
-        // Çevirme butonları için event listener'lar
-        document.getElementById('length-convert-btn').addEventListener('click', convertLengthUnit);
-        document.getElementById('weight-convert-btn').addEventListener('click', convertWeightUnit);
-        document.getElementById('temperature-convert-btn').addEventListener('click', convertTemperatureUnit);
-        document.getElementById('area-convert-btn').addEventListener('click', convertAreaUnit);
-        document.getElementById('volume-convert-btn').addEventListener('click', convertVolumeUnit);
-        document.getElementById('power-convert-btn').addEventListener('click', convertPowerUnit);
-        document.getElementById('pressure-convert-btn').addEventListener('click', convertPressureUnit);
-        document.getElementById('speed-convert-btn').addEventListener('click', convertSpeedUnit);
-        document.getElementById('time-convert-btn').addEventListener('click', convertTimeUnit);
-        document.getElementById('data-convert-btn').addEventListener('click', convertDataUnit);
-        document.getElementById('energy-convert-btn').addEventListener('click', convertEnergyUnit);
-        document.getElementById('angle-convert-btn').addEventListener('click', convertAngleUnit);
         
         // Çevirme fonksiyonları
         function convertLengthUnit() {
