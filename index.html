@@ -195,6 +195,17 @@
         .convert-btn:hover {
             background: var(--secondary-color);
         }
+        
+        /* Sayı inputu için özelleştirme */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -228,7 +239,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="length-value">Değer</label>
-                        <input type="text" id="length-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="length-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="length-from">Birim</label>
@@ -284,7 +295,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="weight-value">Değer</label>
-                        <input type="text" id="weight-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="weight-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="weight-from">Birim</label>
@@ -338,7 +349,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="temperature-value">Değer</label>
-                        <input type="text" id="temperature-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="temperature-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="temperature-from">Birim</label>
@@ -380,7 +391,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="area-value">Değer</label>
-                        <input type="text" id="area-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="area-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="area-from">Birim</label>
@@ -436,7 +447,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="volume-value">Değer</label>
-                        <input type="text" id="volume-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="volume-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="volume-from">Birim</label>
@@ -496,7 +507,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="power-value">Değer</label>
-                        <input type="text" id="power-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="power-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="power-from">Birim</label>
@@ -546,7 +557,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="pressure-value">Değer</label>
-                        <input type="text" id="pressure-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="pressure-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="pressure-from">Birim</label>
@@ -596,7 +607,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="speed-value">Değer</label>
-                        <input type="text" id="speed-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="speed-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="speed-from">Birim</label>
@@ -640,7 +651,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="time-value">Değer</label>
-                        <input type="text" id="time-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="time-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="time-from">Birim</label>
@@ -694,7 +705,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="data-value">Değer</label>
-                        <input type="text" id="data-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="data-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="data-from">Birim</label>
@@ -748,7 +759,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="energy-value">Değer</label>
-                        <input type="text" id="energy-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="energy-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="energy-from">Birim</label>
@@ -802,7 +813,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="angle-value">Değer</label>
-                        <input type="text" id="angle-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
+                        <input type="number" id="angle-value" placeholder="Değer girin" step="any">
                     </div>
                     <div class="input-group">
                         <label for="angle-from">Birim</label>
@@ -843,39 +854,7 @@
     </div>
 
     <script>
-        // Sayı formatlama fonksiyonu
-        function formatNumberInput(input) {
-            // Önce tüm nokta ve virgülleri kaldır
-            let value = input.value.replace(/[.,]/g, '');
-            
-            // Sayıya çevir
-            let num = parseFloat(value);
-            
-            // Eğer geçerli bir sayı değilse veya boşsa işlemi sonlandır
-            if (isNaN(num)) {
-                input.value = '';
-                return;
-            }
-            
-            // Sayıyı stringe çevir ve binlik ayraçlarını ekle
-            let parts = value.split('');
-            let result = '';
-            let count = 0;
-            
-            // Sağdan sola doğru her 3 basamakta bir nokta ekle
-            for (let i = parts.length - 1; i >= 0; i--) {
-                count++;
-                result = parts[i] + result;
-                if (count % 3 === 0 && i !== 0) {
-                    result = '.' + result;
-                }
-            }
-            
-            // Input değerini güncelle
-            input.value = result;
-        }
-
-        // Sonuçları formatlama fonksiyonu
+        // Sayı formatlama fonksiyonu (artık gerekli değil çünkü input type="number" kullanıyoruz)
         function formatNumber(number) {
             // Sayıyı stringe çevir
             let numStr = number.toString();
@@ -962,8 +941,7 @@
         
         // Çevirme fonksiyonları
         function convertLengthUnit() {
-            const valueStr = document.getElementById('length-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('length-value').value);
             const fromUnit = document.getElementById('length-from').value;
             const toUnit = document.getElementById('length-to').value;
             
@@ -977,8 +955,7 @@
         }
         
         function convertWeightUnit() {
-            const valueStr = document.getElementById('weight-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('weight-value').value);
             const fromUnit = document.getElementById('weight-from').value;
             const toUnit = document.getElementById('weight-to').value;
             
@@ -992,8 +969,7 @@
         }
         
         function convertTemperatureUnit() {
-            const valueStr = document.getElementById('temperature-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('temperature-value').value);
             const fromUnit = document.getElementById('temperature-from').value;
             const toUnit = document.getElementById('temperature-to').value;
             
@@ -1007,8 +983,7 @@
         }
         
         function convertAreaUnit() {
-            const valueStr = document.getElementById('area-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('area-value').value);
             const fromUnit = document.getElementById('area-from').value;
             const toUnit = document.getElementById('area-to').value;
             
@@ -1022,8 +997,7 @@
         }
         
         function convertVolumeUnit() {
-            const valueStr = document.getElementById('volume-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('volume-value').value);
             const fromUnit = document.getElementById('volume-from').value;
             const toUnit = document.getElementById('volume-to').value;
             
@@ -1037,8 +1011,7 @@
         }
         
         function convertPowerUnit() {
-            const valueStr = document.getElementById('power-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('power-value').value);
             const fromUnit = document.getElementById('power-from').value;
             const toUnit = document.getElementById('power-to').value;
             
@@ -1052,8 +1025,7 @@
         }
         
         function convertPressureUnit() {
-            const valueStr = document.getElementById('pressure-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('pressure-value').value);
             const fromUnit = document.getElementById('pressure-from').value;
             const toUnit = document.getElementById('pressure-to').value;
             
@@ -1067,8 +1039,7 @@
         }
         
         function convertSpeedUnit() {
-            const valueStr = document.getElementById('speed-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('speed-value').value);
             const fromUnit = document.getElementById('speed-from').value;
             const toUnit = document.getElementById('speed-to').value;
             
@@ -1082,8 +1053,7 @@
         }
         
         function convertTimeUnit() {
-            const valueStr = document.getElementById('time-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('time-value').value);
             const fromUnit = document.getElementById('time-from').value;
             const toUnit = document.getElementById('time-to').value;
             
@@ -1097,8 +1067,7 @@
         }
         
         function convertDataUnit() {
-            const valueStr = document.getElementById('data-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('data-value').value);
             const fromUnit = document.getElementById('data-from').value;
             const toUnit = document.getElementById('data-to').value;
             
@@ -1112,8 +1081,7 @@
         }
         
         function convertEnergyUnit() {
-            const valueStr = document.getElementById('energy-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('energy-value').value);
             const fromUnit = document.getElementById('energy-from').value;
             const toUnit = document.getElementById('energy-to').value;
             
@@ -1127,8 +1095,7 @@
         }
         
         function convertAngleUnit() {
-            const valueStr = document.getElementById('angle-value').value.replace(/\./g, '').replace(',', '.');
-            const value = parseFloat(valueStr);
+            const value = parseFloat(document.getElementById('angle-value').value);
             const fromUnit = document.getElementById('angle-from').value;
             const toUnit = document.getElementById('angle-to').value;
             
