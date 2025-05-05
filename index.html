@@ -228,7 +228,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="length-value">Değer</label>
-                        <input type="number" id="length-value" placeholder="Değer girin">
+                        <input type="text" id="length-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="length-from">Birim</label>
@@ -284,7 +284,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="weight-value">Değer</label>
-                        <input type="number" id="weight-value" placeholder="Değer girin">
+                        <input type="text" id="weight-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="weight-from">Birim</label>
@@ -338,7 +338,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="temperature-value">Değer</label>
-                        <input type="number" id="temperature-value" placeholder="Değer girin">
+                        <input type="text" id="temperature-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="temperature-from">Birim</label>
@@ -380,7 +380,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="area-value">Değer</label>
-                        <input type="number" id="area-value" placeholder="Değer girin">
+                        <input type="text" id="area-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="area-from">Birim</label>
@@ -390,6 +390,7 @@
                             <option value="m2" selected>Metre kare (m²)</option>
                             <option value="km2">Kilometre kare (km²)</option>
                             <option value="ha">Hektar (ha)</option>
+                            <option value="dekar">Dekar (daa)</option>
                             <option value="ac">Acre (ac)</option>
                             <option value="in2">İnç kare (in²)</option>
                             <option value="ft2">Fit kare (ft²)</option>
@@ -407,6 +408,7 @@
                             <option value="m2">Metre kare (m²)</option>
                             <option value="km2">Kilometre kare (km²)</option>
                             <option value="ha">Hektar (ha)</option>
+                            <option value="dekar">Dekar (daa)</option>
                             <option value="ac">Acre (ac)</option>
                             <option value="in2">İnç kare (in²)</option>
                             <option value="ft2">Fit kare (ft²)</option>
@@ -434,7 +436,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="volume-value">Değer</label>
-                        <input type="number" id="volume-value" placeholder="Değer girin">
+                        <input type="text" id="volume-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="volume-from">Birim</label>
@@ -494,7 +496,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="power-value">Değer</label>
-                        <input type="number" id="power-value" placeholder="Değer girin">
+                        <input type="text" id="power-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="power-from">Birim</label>
@@ -544,7 +546,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="pressure-value">Değer</label>
-                        <input type="number" id="pressure-value" placeholder="Değer girin">
+                        <input type="text" id="pressure-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="pressure-from">Birim</label>
@@ -594,7 +596,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="speed-value">Değer</label>
-                        <input type="number" id="speed-value" placeholder="Değer girin">
+                        <input type="text" id="speed-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="speed-from">Birim</label>
@@ -638,7 +640,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="time-value">Değer</label>
-                        <input type="number" id="time-value" placeholder="Değer girin">
+                        <input type="text" id="time-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="time-from">Birim</label>
@@ -692,7 +694,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="data-value">Değer</label>
-                        <input type="number" id="data-value" placeholder="Değer girin">
+                        <input type="text" id="data-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="data-from">Birim</label>
@@ -746,7 +748,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="energy-value">Değer</label>
-                        <input type="number" id="energy-value" placeholder="Değer girin">
+                        <input type="text" id="energy-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="energy-from">Birim</label>
@@ -800,7 +802,7 @@
                 <div class="converter-row">
                     <div class="input-group">
                         <label for="angle-value">Değer</label>
-                        <input type="number" id="angle-value" placeholder="Değer girin">
+                        <input type="text" id="angle-value" placeholder="Değer girin" oninput="formatNumberInput(this)">
                     </div>
                     <div class="input-group">
                         <label for="angle-from">Birim</label>
@@ -841,6 +843,73 @@
     </div>
 
     <script>
+        // Sayı formatlama fonksiyonu
+        function formatNumberInput(input) {
+            // Önce tüm nokta ve virgülleri kaldır
+            let value = input.value.replace(/[.,]/g, '');
+            
+            // Sayıya çevir
+            let num = parseFloat(value);
+            
+            // Eğer geçerli bir sayı değilse veya boşsa işlemi sonlandır
+            if (isNaN(num) {
+                input.value = '';
+                return;
+            }
+            
+            // Sayıyı stringe çevir ve binlik ayraçlarını ekle
+            let parts = value.split('');
+            let result = '';
+            let count = 0;
+            
+            // Sağdan sola doğru her 3 basamakta bir nokta ekle
+            for (let i = parts.length - 1; i >= 0; i--) {
+                count++;
+                result = parts[i] + result;
+                if (count % 3 === 0 && i !== 0) {
+                    result = '.' + result;
+                }
+            }
+            
+            // Input değerini güncelle
+            input.value = result;
+        }
+
+        // Sonuçları formatlama fonksiyonu
+        function formatNumber(number) {
+            // Sayıyı stringe çevir
+            let numStr = number.toString();
+            
+            // Ondalık kısmı varsa ayır
+            let parts = numStr.split('.');
+            let integerPart = parts[0];
+            let decimalPart = parts.length > 1 ? parts[1] : '';
+            
+            // Binlik ayraçlarını ekle
+            let formattedInteger = '';
+            let count = 0;
+            
+            for (let i = integerPart.length - 1; i >= 0; i--) {
+                count++;
+                formattedInteger = integerPart[i] + formattedInteger;
+                if (count % 3 === 0 && i !== 0) {
+                    formattedInteger = '.' + formattedInteger;
+                }
+            }
+            
+            // Ondalık kısmı 3 basamakla sınırla
+            if (decimalPart) {
+                decimalPart = decimalPart.substring(0, 3);
+                // Eğer ondalık kısım 3 basamaktan kısa ise, eksik basamakları sıfırla doldur
+                while (decimalPart.length < 3) {
+                    decimalPart += '0';
+                }
+                return formattedInteger + ',' + decimalPart;
+            } else {
+                return formattedInteger + ',000';
+            }
+        }
+
         // Kategori seçimi
         const categoryButtons = document.querySelectorAll('.category-btn');
         const converters = {
@@ -889,7 +958,8 @@
         
         // Çevirme fonksiyonları
         function convertLengthUnit() {
-            const value = parseFloat(document.getElementById('length-value').value);
+            const valueStr = document.getElementById('length-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('length-from').value;
             const toUnit = document.getElementById('length-to').value;
             
@@ -899,11 +969,12 @@
             }
             
             const result = convertLength(value, fromUnit, toUnit);
-            document.getElementById('length-result').textContent = result.toFixed(6);
+            document.getElementById('length-result').textContent = formatNumber(result);
         }
         
         function convertWeightUnit() {
-            const value = parseFloat(document.getElementById('weight-value').value);
+            const valueStr = document.getElementById('weight-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('weight-from').value;
             const toUnit = document.getElementById('weight-to').value;
             
@@ -913,11 +984,12 @@
             }
             
             const result = convertWeight(value, fromUnit, toUnit);
-            document.getElementById('weight-result').textContent = result.toFixed(6);
+            document.getElementById('weight-result').textContent = formatNumber(result);
         }
         
         function convertTemperatureUnit() {
-            const value = parseFloat(document.getElementById('temperature-value').value);
+            const valueStr = document.getElementById('temperature-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('temperature-from').value;
             const toUnit = document.getElementById('temperature-to').value;
             
@@ -927,11 +999,12 @@
             }
             
             const result = convertTemperature(value, fromUnit, toUnit);
-            document.getElementById('temperature-result').textContent = result.toFixed(6);
+            document.getElementById('temperature-result').textContent = formatNumber(result);
         }
         
         function convertAreaUnit() {
-            const value = parseFloat(document.getElementById('area-value').value);
+            const valueStr = document.getElementById('area-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('area-from').value;
             const toUnit = document.getElementById('area-to').value;
             
@@ -941,11 +1014,12 @@
             }
             
             const result = convertArea(value, fromUnit, toUnit);
-            document.getElementById('area-result').textContent = result.toFixed(6);
+            document.getElementById('area-result').textContent = formatNumber(result);
         }
         
         function convertVolumeUnit() {
-            const value = parseFloat(document.getElementById('volume-value').value);
+            const valueStr = document.getElementById('volume-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('volume-from').value;
             const toUnit = document.getElementById('volume-to').value;
             
@@ -955,11 +1029,12 @@
             }
             
             const result = convertVolume(value, fromUnit, toUnit);
-            document.getElementById('volume-result').textContent = result.toFixed(6);
+            document.getElementById('volume-result').textContent = formatNumber(result);
         }
         
         function convertPowerUnit() {
-            const value = parseFloat(document.getElementById('power-value').value);
+            const valueStr = document.getElementById('power-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('power-from').value;
             const toUnit = document.getElementById('power-to').value;
             
@@ -969,11 +1044,12 @@
             }
             
             const result = convertPower(value, fromUnit, toUnit);
-            document.getElementById('power-result').textContent = result.toFixed(6);
+            document.getElementById('power-result').textContent = formatNumber(result);
         }
         
         function convertPressureUnit() {
-            const value = parseFloat(document.getElementById('pressure-value').value);
+            const valueStr = document.getElementById('pressure-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('pressure-from').value;
             const toUnit = document.getElementById('pressure-to').value;
             
@@ -983,11 +1059,12 @@
             }
             
             const result = convertPressure(value, fromUnit, toUnit);
-            document.getElementById('pressure-result').textContent = result.toFixed(6);
+            document.getElementById('pressure-result').textContent = formatNumber(result);
         }
         
         function convertSpeedUnit() {
-            const value = parseFloat(document.getElementById('speed-value').value);
+            const valueStr = document.getElementById('speed-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('speed-from').value;
             const toUnit = document.getElementById('speed-to').value;
             
@@ -997,11 +1074,12 @@
             }
             
             const result = convertSpeed(value, fromUnit, toUnit);
-            document.getElementById('speed-result').textContent = result.toFixed(6);
+            document.getElementById('speed-result').textContent = formatNumber(result);
         }
         
         function convertTimeUnit() {
-            const value = parseFloat(document.getElementById('time-value').value);
+            const valueStr = document.getElementById('time-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('time-from').value;
             const toUnit = document.getElementById('time-to').value;
             
@@ -1011,11 +1089,12 @@
             }
             
             const result = convertTime(value, fromUnit, toUnit);
-            document.getElementById('time-result').textContent = result.toFixed(6);
+            document.getElementById('time-result').textContent = formatNumber(result);
         }
         
         function convertDataUnit() {
-            const value = parseFloat(document.getElementById('data-value').value);
+            const valueStr = document.getElementById('data-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('data-from').value;
             const toUnit = document.getElementById('data-to').value;
             
@@ -1025,11 +1104,12 @@
             }
             
             const result = convertData(value, fromUnit, toUnit);
-            document.getElementById('data-result').textContent = result.toFixed(6);
+            document.getElementById('data-result').textContent = formatNumber(result);
         }
         
         function convertEnergyUnit() {
-            const value = parseFloat(document.getElementById('energy-value').value);
+            const valueStr = document.getElementById('energy-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('energy-from').value;
             const toUnit = document.getElementById('energy-to').value;
             
@@ -1039,11 +1119,12 @@
             }
             
             const result = convertEnergy(value, fromUnit, toUnit);
-            document.getElementById('energy-result').textContent = result.toFixed(6);
+            document.getElementById('energy-result').textContent = formatNumber(result);
         }
         
         function convertAngleUnit() {
-            const value = parseFloat(document.getElementById('angle-value').value);
+            const valueStr = document.getElementById('angle-value').value.replace(/\./g, '').replace(',', '.');
+            const value = parseFloat(valueStr);
             const fromUnit = document.getElementById('angle-from').value;
             const toUnit = document.getElementById('angle-to').value;
             
@@ -1053,7 +1134,7 @@
             }
             
             const result = convertAngle(value, fromUnit, toUnit);
-            document.getElementById('angle-result').textContent = result.toFixed(6);
+            document.getElementById('angle-result').textContent = formatNumber(result);
         }
         
         // Temel çevirme fonksiyonları
@@ -1155,6 +1236,7 @@
                 case 'm2': squareMeters = value; break;
                 case 'km2': squareMeters = value * 1e6; break;
                 case 'ha': squareMeters = value * 1e4; break;
+                case 'dekar': squareMeters = value * 1000; break;
                 case 'ac': squareMeters = value * 4046.86; break;
                 case 'in2': squareMeters = value * 0.00064516; break;
                 case 'ft2': squareMeters = value * 0.092903; break;
@@ -1170,6 +1252,7 @@
                 case 'm2': return squareMeters;
                 case 'km2': return squareMeters / 1e6;
                 case 'ha': return squareMeters / 1e4;
+                case 'dekar': return squareMeters / 1000;
                 case 'ac': return squareMeters / 4046.86;
                 case 'in2': return squareMeters / 0.00064516;
                 case 'ft2': return squareMeters / 0.092903;
