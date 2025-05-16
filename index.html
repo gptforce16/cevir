@@ -570,6 +570,7 @@
                             <option value="mmhg">mmHg</option>
                             <option value="psi">PSI</option>
                             <option value="kgf-cm2">kgf/cm²</option>
+                            <option value="kn-m2">kN/m²</option>
                         </select>
                     </div>
                 </div>
@@ -585,6 +586,7 @@
                             <option value="mmhg" selected>mmHg</option>
                             <option value="psi">PSI</option>
                             <option value="kgf-cm2">kgf/cm²</option>
+                            <option value="kn-m2">kN/m²</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -1313,6 +1315,7 @@
                 case 'mmhg': pascals = value * 133.322; break;
                 case 'psi': pascals = value * 6894.76; break;
                 case 'kgf-cm2': pascals = value * 98066.5; break;
+                case 'kn-m2': pascals = value * 1000; break; // kN/m² = 1000 Pa
                 default: return value;
             }
             
@@ -1326,6 +1329,7 @@
                 case 'mmhg': return pascals / 133.322;
                 case 'psi': return pascals / 6894.76;
                 case 'kgf-cm2': return pascals / 98066.5;
+                case 'kn-m2': return pascals / 1000; // kN/m² = 1000 Pa
                 default: return pascals;
             }
         }
